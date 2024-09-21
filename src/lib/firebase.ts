@@ -1,11 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCZ_Mg4GLQXMRbYKvsPhDSt8AHeQcwsNU4",
   authDomain: "expetracke.firebaseapp.com",
@@ -16,6 +12,10 @@ const firebaseConfig = {
   measurementId: "G-6MHT193TRN"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
+export const db = getFirestore(app);
+
+if (process.env.NODE_ENV === 'development') {
+  connectFirestoreEmulator(db, '127.0.0.1', 8080);
+}
